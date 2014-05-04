@@ -1,0 +1,6 @@
+<?php 
+phpinfo();
+
+ if (function_exists('mail')) echo "^_^ mail()函数可以使用！";
+else echo "- -! mail()函数不可以使用！";
+?>

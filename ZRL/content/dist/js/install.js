@@ -1,0 +1,1 @@
+define("install",["jquery"],function(e){});
