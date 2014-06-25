@@ -1,7 +1,4 @@
-#Sun Mar 02 21:26:53 CST 2014
+#Wed Jun 25 07:26:37 GMT 2014
 eclipse.preferences.version=1
-encoding//apps/install/Home/Controller/zrl.sql=UTF-8
-encoding//apps/zrl/Home/View/Index/index.html=UTF-8
-encoding//conf/rewrite/zrl.conf=UTF-8
-encoding//conf/vhosts/zrl.conf=UTF-8
-encoding/<project>=UTF-8
+encoding/index.php=UTF-8
+encoding/install.php=UTF-8

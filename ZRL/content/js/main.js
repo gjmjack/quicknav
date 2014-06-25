@@ -1,7 +1,7 @@
 require.config({
-    baseUrl: "/content/dist/js",
+    baseUrl: "/content/js",
     paths: {
-        ZrlStrings: 'strings',
+        ZrlStrings: 'ZrlStrings',
         jquery: "jquery-2.1.0",
         jqueryui: "jquery-ui-1.10.4",
         qrcode: "jquery.qrcode",

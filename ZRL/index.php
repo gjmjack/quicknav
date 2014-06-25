@@ -15,7 +15,7 @@
 if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 
 // 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
-define('APP_DEBUG',  true);
+define('APP_DEBUG',  false);
 
 $_GET['m'] = 'Home'; // 绑定Home模块到当前入口文件
 //$_GET['c'] = 'Index'; // 绑定Index控制器到当前入口文件
