@@ -1,43 +1,59 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
-  <head>
-     
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="/content/img/favicon.ico">
-    <script type="text/javascript" src="/content/js/require.js"></script>
-    <script type="text/javascript" src="/content/js/main.js"></script>
-    <!-- <script type="text/javascript">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="author" content="Jacob" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="keywords"
+	content="Url shortner, short link service, free short links" />
+<meta name="description" content="Use ZRL to shorten your long URLs" />
+<meta property="og:title" content="Url Shortener" />
+<meta property="og:description"
+	content="ZRL is a url shorten service, you can use it to shorten your long urls." />
+<meta property="og:site_name" content="Url Shortener" />
+<meta property="og:url" content="http://zrl.so" />
+<link rel="shortcut icon" href="/content/img/favicon.ico"></link>
+
+<!-- <script type="text/javascript">
         require.config({
             baseUrl: "/content/js",
         });
     </script> -->
-    <link rel="stylesheet" href="/content/css/bootstrap.css"/>
-    <link rel="stylesheet" href="/content/css/zrl.css" />
-  </link></meta></meta></meta></meta><title>{$tile}</title></head>
-  <body>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a  id="home" class="navbar-brand" href="/">ZRL</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-           <?php
+<link rel="stylesheet" href="/content/css/bootstrap.css" />
+<link rel="stylesheet" href="/content/css/zrl.css" />
+<title>
+	<?php 
+if($title)
+{
+ echo $title;
+}
+else
+{
+  echo 'ZRL, the best url shortner.' ;
+}
+?>
+</title>
+</head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a id="home" class="navbar-brand" href="/">ZRL</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<?php
 $navibar=array(
 	"Home"=>"/",
     "Blog"=>"/blog/",
 	"About"=>"/about.html",
-	"Contact"=>"/contact.html",
+	//"Contact"=>"/contact.html",
    
 );
 $ackey="Home";
@@ -58,21 +74,30 @@ foreach ($navibar as $key => $value) {
 	}
 }
 ?>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-          </ul>
-        </div>
-      </div>
-    </div>
-    
-      <block name="main"></block>
-     
-      <block name="posts"></block>
-      
-      <script type="text/javascript">
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe9c0c56752fc71ccc94e8ea0a6df8f8a' type='text/javascript'%3E%3C/script%3E"));
-</script>
-      
-  </body>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<block name="main"></block>
+
+	<block name="posts"></block>
+
+	<script type="text/javascript" src="/content/js/require.js"></script>
+	<script type="text/javascript" src="/content/js/main.js"></script>
+
+	<block name="scripts"></block>
+
+	<script type="text/javascript">
+		var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://"
+				: " http://");
+		document
+				.write(unescape("%3Cscript src='"
+						+ _bdhmProtocol
+						+ "hm.baidu.com/h.js%3Fe9c0c56752fc71ccc94e8ea0a6df8f8a' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+
+</body>
 </html>
