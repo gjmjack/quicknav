@@ -281,23 +281,21 @@ class IndexController extends Controller {
 		}
 	}
 	public function decode() {
-		/*
-		 * echo $_GET["data"]; return ;
-		 */
 		if ($_GET ["data"] == null) {
 			$this->redirect ( '/' );
 		} else {
 			$key = $_GET ["data"];
 			if (eregi ( '^[0-9a-zA-Z]+$', $key )) {
 				$url = M ( "Urls" );
-				$data = $url->where ( 'ShortUrl=\'' . $key . '\'' )->find ();
+				$data = $url->where ( 'binary ShortUrl=\'' . $key . '\'' )->find ();
+			 
 				if ($data) {
 					$this->addVistRecord ( $data ['Id'] );
 					$originalUrl = $data ['OriginalUrl']; 
-					if (! eregi ( '^\w+://', $originalUrl )) {
+					if ( eregi ( '^[a-zA-Z]+[:]//', $originalUrl )==0) {
 						$originalUrl = 'http://' . $originalUrl;
 					}
-					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=" . $originalUrl . "\">";
+					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL='" . $originalUrl . "'\">";
 				} else {
 					$this->redirect ( '/' );
 				}

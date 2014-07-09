@@ -75,7 +75,7 @@ define(
 				if ($.isPlainObject(data)) {
 					cacheData(data);
 					if (data.result == 'true') {
-						//validatePanel.hide();
+						// validatePanel.hide();
 
 						var result = getCurrentHost() + data.data;
 						if (encodeResultPanel == null) {
@@ -103,6 +103,7 @@ define(
 						encodeResultPanel.fadeIn();
 						qrinput.click();
 						enableInput(true);
+						refreshRecent();
 					} else {
 						showMessage(ZrlStrings['EncodeErrorCode'
 								+ data.errorcode]);
@@ -116,7 +117,7 @@ define(
 				if (!host) {
 					var rg = new RegExp("zrl\.so$", "i");
 					if (rg.test(window.location.host)) {
-						host="http://zrl.so/";
+						host = "http://zrl.so/";
 					} else {
 						host = window.location.protocol + "//"
 								+ window.location.host + "/";
@@ -283,34 +284,35 @@ define(
 			}
 
 			function iniInput() {
-				$("#sbox-bt").click(function() {
+				$("#sbox-bt").click(
+						function() {
 
-					var surl = getUrl();
+							var surl = getUrl();
 
-					if (!validateUrl(surl)) {
-						return;
-					}
-					var key = $.md5(surl);
+							if (!validateUrl(surl)) {
+								return;
+							}
+							var key = $.md5(surl);
 
-					var data = getDatafromCache(key);
+							var data = getDatafromCache(key);
 
-					if (data) {
-						data.source = surl;
-						showEncodeResult(data);
-					} else {
-						data={
-								data : surl,
-								md5key : key,
-								validateKey : ""
-							};
-						$.post(indexConfig.EncodeUrl, data,
-								function(resultObj) {
+							if (data) {
+								data.source = surl;
+								showEncodeResult(data);
+							} else {
+								data = {
+									data : surl,
+									md5key : key,
+									validateKey : ""
+								};
+								$.post(indexConfig.EncodeUrl, data, function(
+										resultObj) {
 									resultObj.source = surl;
 									showEncodeResult(resultObj);
 								});
-						//verifyInput();
-					}
-				});
+								// verifyInput();
+							}
+						});
 				$("#sourceUrl").tooltip({
 					title : ZrlStrings.InputUrlHint,
 					placement : 'top'
@@ -343,8 +345,56 @@ define(
 				}
 			}
 
+			function showhistory(data, id) {
+				$("#" + id).empty();
+
+				for ( var i = 0; i < data.length; i++) {
+					var tr = $("<tr/>");
+					var su = getCurrentHost() + data[i].ShortUrl;
+					var visit = data[i].VisitCount == null ? 0
+							: data[i].VisitCount;
+					tr.append($("<td>"+(i+1)+"</td>"));
+					tr.append($("<td><a href=\"" + su + "\" target=\"_blank\">"
+							+ su + "</a></td>"));
+					var orl = data[i].OriginalUrl;
+					var orlview = $("<td/>");
+
+					if (orl && orl.length > 50) {
+						orl = orl.substring(0, 50) + "...";
+						orlview.attr("title", data[i].OriginalUrl);
+					}
+					orlview.append(orl);
+					tr.append(orlview);
+					tr.append($("<td>" + data[i].CreateTime + "</td>"));
+					tr.append($("<td>" + visit + "</td>"));
+					$("#" + id).append(tr);
+				}
+			}
+
+			function refreshRecent() {
+				$.get("/History/showrecent.html", function(data) {
+					if (data) {
+						showhistory(data, "recent");
+
+					}
+
+				});
+			}
+
+			function refreshPopular() {
+				$.get("/History/showpopular.html", function(data) {
+					if (data) {
+						showhistory(data, "popular");
+
+					}
+
+				});
+			}
+
 			$(document).ready(function() {
 				iniInput();
+				refreshRecent();
+				refreshPopular();
 			});
 
 		});

@@ -1,7 +1,7 @@
 <?php
 return array(
 //'配置项'=>'配置值'
-//'SHOW_PAGE_TRACE' =>true,
+'SHOW_PAGE_TRACE' =>true,
 'MODULE_ALLOW_LIST'    =>    array('Home'),
 'MULTI_MODULE'          =>  false,
 'DEFAULT_MODULE'       =>    'Home',

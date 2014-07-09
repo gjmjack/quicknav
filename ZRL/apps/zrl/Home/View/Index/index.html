@@ -2,30 +2,83 @@
 
 <block name="main">
 <div class="row">
-         <div class="col-lg-2 ">
-     
-  </div><!-- /.col-lg-6 -->
-  <div class="col-lg-8 zrl-group">
-    <div class="input-group input-group-lg" style="margin-bottom:15px;">
-        <input type="text" autocomplete="off"   class="form-control" placeholder="http://servername/site/...." id="sourceUrl">
-        <span class="input-group-btn ">
-        <button class="btn btn-default " id="sbox-bt" type="button">
-            <span class="icon-z"></span>
-        </button>
-        </span>
-    </div>
-  </div><!-- /.col-lg-6 -->
+	<div class="col-lg-2 "></div>
+	<!-- /.col-lg-6 -->
+	<div class="col-lg-8 zrl-group">
+		<div class="input-group input-group-lg" style="margin-bottom: 15px;">
+			<input type="text" autocomplete="off" class="form-control"
+				placeholder="http://servername/site/...." id="sourceUrl"> <span
+				class="input-group-btn ">
+				<button class="btn btn-default " id="sbox-bt" type="button">
+					<span class="icon-z"></span>
+				</button>
+			</span>
+		</div>
+	</div>
+	<!-- /.col-lg-6 -->
 
-     <div class="col-lg-2 ">
-     
-  </div><!-- /.col-lg-6 -->
-</div> 
-   
+	<div class="col-lg-2 "></div>
+	<!-- /.col-lg-6 -->
+
+</div>
+<div class="row">
+	<div class="col-lg-2 "></div>
+	<div class="col-lg-8 ">
+		<div class="panel panel-default">
+			<!-- Default panel contents -->
+			<div class="panel-heading">Recent added</div>
+
+			<!-- Table -->
+			<table class="table">
+				<thead>
+					<tr>
+					    <th>Id</th>					
+						<th>Short Url</th>
+						<th>Original Url</th>
+						<th>Create Time</th>
+						<th>Access Time</th>
+					</tr>
+				</thead>
+				<tbody id="recent">
+					 
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-lg-2 "></div>
+
+</div>
+
+<div class="row">
+	<div class="col-lg-2 "></div>
+	<div class="col-lg-8 ">
+		<div class="panel panel-default">
+			<!-- Default panel contents -->
+			<div class="panel-heading">Most popular</div>
+
+			<!-- Table -->
+			<table class="table">
+				<thead>
+					<tr>
+					    <th>Id</th>
+						<th>Short Url</th>
+						<th>Original Url</th>
+						<th>Create Time</th>
+						<th>Access Time</th>
+					</tr>
+				</thead>
+				<tbody id="popular">
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-lg-2 "></div>
+
+</div>
+
 </block>
-<block name="scripts">
-    <script type="text/javascript">
-       require(['index']);
-	</script>
-</block>
- 
+<block name="scripts"> <script type="text/javascript">
+	require([ 'index' ]);
+</script> </block>
+
 

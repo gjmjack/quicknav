@@ -76,6 +76,15 @@ foreach ($navibar as $key => $value) {
 ?>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<div class="input-group"
+							style="min-width: 100px; max-width: 150px; padding-top: 8px;">
+							<input id="goValue" type="text" class="form-control" /> <span
+								class="input-group-btn">
+								<button id="go" class="btn btn-default" type="button">Go!</button>
+							</span>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -91,6 +100,15 @@ foreach ($navibar as $key => $value) {
 	<block name="scripts"></block>
 
 	<script type="text/javascript">
+		require(["jquery"], function() {
+			$("#go").click(function() {
+				var value = $("#goValue").val();
+				if (value) {
+					window.open("/"+value);
+				}
+			});
+		});
+	</script><script type="text/javascript">
 		var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://"
 				: " http://");
 		document
