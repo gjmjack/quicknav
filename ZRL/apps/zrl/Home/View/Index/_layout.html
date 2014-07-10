@@ -25,11 +25,11 @@
 	<?php 
 if($title)
 {
- echo $title;
+ echo "URL Shorter | ".$title;
 }
 else
 {
-  echo 'ZRL, the best url shortner.' ;
+echo "URL Shorter";
 }
 ?>
 </title>
@@ -79,8 +79,8 @@ foreach ($navibar as $key => $value) {
 					<li>
 						<div class="input-group"
 							style="min-width: 100px; max-width: 150px; padding-top: 8px;">
-							<input id="goValue" type="text" class="form-control" /> <span
-								class="input-group-btn">
+							<input id="goValue" placeholder="id" type="text"
+								class="form-control" /> <span class="input-group-btn">
 								<button id="go" class="btn btn-default" type="button">Go!</button>
 							</span>
 						</div>
@@ -100,13 +100,17 @@ foreach ($navibar as $key => $value) {
 	<block name="scripts"></block>
 
 	<script type="text/javascript">
-		require(["jquery"], function() {
+		require([ "jquery","bootstrap" ], function() {
 			$("#go").click(function() {
 				var value = $("#goValue").val();
 				if (value) {
-					window.open("/"+value);
+					window.open("/" + value);
 				}
 			});
+			$("#goValue").tooltip({
+				"title" : "Please input the short id",
+				placement : "bottom",
+			})
 		});
 	</script><script type="text/javascript">
 		var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://"
