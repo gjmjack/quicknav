@@ -1,15 +1,27 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 <head>
+<meta name="baidu-site-verification" content="uSOh41wJnw" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="author" content="Jacob" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="keywords"
-	content="Url shortner, short link service, free short links" />
-<meta name="description" content="Use ZRL to shorten your long URLs" />
+	content="Url shortner,QR Code, Quick shorten url, Easy short URL share service, fast url shorten service, short link service, free short links" />
+<meta name="description"
+	content="ZRL URL Shortener is a lightweight shortener. 
+It's fast and easy to use.
+You can use this service to shorten your URL or you can quick navigate to the URL by short id.
+And you can use mobile device to access this service and shorten URL, or any other strings.
+In order to quick share it to your friends, you can scan the QRCode to quick access the shortened URL.
+You can get the most popular short url on the home page." />
 <meta property="og:title" content="Url Shortener" />
 <meta property="og:description"
-	content="ZRL is a url shorten service, you can use it to shorten your long urls." />
+	content="ZRL URL Shortener is a lightweight shortener. 
+It's fast and easy to use.
+You can use this service to shorten your URL or you can quick navigate to the URL by short id.
+And you can use mobile device to access this service and shorten URL, or any other strings.
+In order to quick share it to your friends, you can scan the QRCode to quick access the shortened URL.
+You can get the most popular short url on the home page." />
 <meta property="og:site_name" content="Url Shortener" />
 <meta property="og:url" content="http://zrl.so" />
 <link rel="shortcut icon" href="/content/img/favicon.ico"></link>
@@ -25,14 +37,17 @@
 	<?php 
 if($title)
 {
- echo "URL Shorter | ".$title;
+ echo "URL Shortener | ".$title;
 }
 else
 {
-echo "URL Shorter";
+echo "URL Shortener";
 }
 ?>
 </title>
+
+<script type="text/javascript" name="baidu-tc-cerfication" src="http://apps.bdimg.com/cloudaapi/lightapp.js#7287e54a9b30280cac6348c3b065dbb1"></script> <script type="text/javascript">window.bd && bd._qdc && bd._qdc.init({app_id: '799a83ee4572073708ccc3c2'});</script>
+
 </head>
 <body>
 	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -40,11 +55,11 @@ echo "URL Shorter";
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
+					<span class="sr-only">ZRL URL Shortener is a lightweight shortener. It's fast and easy to use.</span> <span
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a id="home" class="navbar-brand" href="/">ZRL</a>
+				<!-- <a id="home" class="navbar-brand" href="/">ZRL</a> -->
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
@@ -79,7 +94,7 @@ foreach ($navibar as $key => $value) {
 					<li>
 						<div class="input-group"
 							style="min-width: 100px; max-width: 150px; padding-top: 8px;">
-							<input id="goValue" placeholder="id" type="text"
+							<input id="goValue" placeholder="input id" type="text"
 								class="form-control" /> <span class="input-group-btn">
 								<button id="go" class="btn btn-default" type="button">Go!</button>
 							</span>
@@ -100,7 +115,7 @@ foreach ($navibar as $key => $value) {
 	<block name="scripts"></block>
 
 	<script type="text/javascript">
-		require([ "jquery","bootstrap" ], function() {
+		require([ "jquery", "bootstrap" ], function() {
 			$("#go").click(function() {
 				var value = $("#goValue").val();
 				if (value) {
@@ -110,7 +125,11 @@ foreach ($navibar as $key => $value) {
 			$("#goValue").tooltip({
 				"title" : "Please input the short id",
 				placement : "bottom",
-			})
+			}).keyup(function(event) {
+				if (event.which == 13) {
+					$("#go").click();
+				}
+			});
 		});
 	</script><script type="text/javascript">
 		var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://"

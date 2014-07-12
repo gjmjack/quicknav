@@ -284,38 +284,42 @@ define(
 			}
 
 			function iniInput() {
-				$("#sbox-bt").click(
-						function() {
+				$("#sbox-bt").click(function() {
 
-							var surl = getUrl();
+					var surl = getUrl();
 
-							if (!validateUrl(surl)) {
-								return;
-							}
-							var key = $.md5(surl);
+					if (!validateUrl(surl)) {
+						return;
+					}
+					var key = $.md5(surl);
 
-							var data = getDatafromCache(key);
+					var data = getDatafromCache(key);
 
-							if (data) {
-								data.source = surl;
-								showEncodeResult(data);
-							} else {
-								data = {
-									data : surl,
-									md5key : key,
-									validateKey : ""
-								};
-								$.post(indexConfig.EncodeUrl, data, function(
-										resultObj) {
+					if (data) {
+						data.source = surl;
+						showEncodeResult(data);
+					} else {
+						data = {
+							data : surl,
+							md5key : key,
+							validateKey : ""
+						};
+						$.post(indexConfig.EncodeUrl, data,
+								function(resultObj) {
 									resultObj.source = surl;
 									showEncodeResult(resultObj);
 								});
-								// verifyInput();
-							}
-						});
+						// verifyInput();
+					}
+					;
+				});
 				$("#sourceUrl").tooltip({
 					title : ZrlStrings.InputUrlHint,
 					placement : 'top'
+				}).keyup(function(event) {
+					if (event.which == 13) {
+						$("#sbox-bt").click();
+					}
 				});
 			}
 
@@ -349,11 +353,14 @@ define(
 				$("#" + id).empty();
 
 				for ( var i = 0; i < data.length; i++) {
-					var tr = $("<tr/>");
+					var tr = $("<tr />");
+					if (i % 2 == 0) {
+						tr.addClass("active");
+					}
 					var su = getCurrentHost() + data[i].ShortUrl;
 					var visit = data[i].VisitCount == null ? 0
 							: data[i].VisitCount;
-					tr.append($("<td>"+(i+1)+"</td>"));
+					tr.append($("<td>" + (i + 1) + "</td>"));
 					tr.append($("<td><a href=\"" + su + "\" target=\"_blank\">"
 							+ su + "</a></td>"));
 					var orl = data[i].OriginalUrl;
@@ -363,11 +370,19 @@ define(
 						orl = orl.substring(0, 50) + "...";
 						orlview.attr("title", data[i].OriginalUrl);
 					}
-					orlview.append(orl);
+					var rg = new RegExp("^(https?)://.+$", "i");
+					if (rg.test(orl)) {
+						orlview.append($("<a href=\"" + su
+								+ "\" target=\"_blank\">" + orl + "</a>"))
+					} else {
+						orlview.append(orl);
+					}
+
 					tr.append(orlview);
 					tr.append($("<td>" + data[i].CreateTime + "</td>"));
 					tr.append($("<td>" + visit + "</td>"));
 					$("#" + id).append(tr);
+
 				}
 			}
 
@@ -393,8 +408,8 @@ define(
 
 			$(document).ready(function() {
 				iniInput();
-				refreshRecent();
-				refreshPopular();
+				// refreshRecent();
+				// refreshPopular();
 			});
 
 		});

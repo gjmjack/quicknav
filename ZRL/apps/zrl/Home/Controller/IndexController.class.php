@@ -162,11 +162,82 @@ class UrlEncoder {
 	}
 }
 class IndexController extends Controller {
+	private function displayHistory($data) {
+		if ($data == null) {
+			return "";
+		}
+		$host = "http://" . $_SERVER ["HTTP_HOST"];
+		$index = count ( $data );
+		$tr = "";
+		
+		$result = array ();
+		
+		for($i = 0; $i < $index; $i ++) {
+			
+			$su = $host ."/". $data [$i] ["ShortUrl"];
+			$visit = $data [$i] ["VisitCount"] == null ? 0 : $data [$i] ["VisitCount"];
+			$orl = $data [$i] ["OriginalUrl"];
+			
+			array_push ( $result, "<tr " );
+			
+			$tr = $tr . "<tr ";
+			if ($i % 2 == 0) {
+				array_push ( $result, " class=\"active\" " );
+			}
+			array_push ( $result, ">" );
+			
+			array_push ( $result, "<td>" . ($i + 1) . "</td>" );
+			array_push ( $result, "<td><a href=\"" . $su . "\" target=\"_blank\">" . $su . "</a></td>" );
+			
+			array_push ( $result, "<td" );
+			
+			if (strlen ( $orl ) > 50) {
+				$orl = substr ( $orl, 0, 50 ) . "...";
+				array_push ( $result, " title=\"" . $data [$i] ["OriginalUrl"] . "\" " );
+			}
+			if (eregi("^https?://.+$",$orl)) {
+				 $orl="<a href=\"" . $su . "\" target=\"_blank\">" . $orl . "</a>";
+			}
+			array_push ( $result, ">" . $orl . "</td>" );
+			
+			array_push ( $result, "<td>" . $data [$i] ["CreateTime"] . "</td>" );
+			array_push ( $result, "<td>" . $visit . "</td>" );
+			
+			array_push ( $result, "</tr>" );
+		}
+		return join ( "", $result );
+	}
+	protected function getrecent() {
+		$url = M ( "Urls" );
+		// $User->where('status=1')->order('create_time')->limit(10)->select();
+		// order by CreateTime desc LIMIT 10
+		// $data->table('user U')->join('news N on U.id=N.cid')->field('U.*,N.*')->order('id desc')->limit('8')->findall();
+		$data = $url->table ( "urls" )->join ( "visit_statistics on urls.Id= visit_statistics.UrlId", "left" )->field ( " urls.*, visit_statistics.VisitCount" )->order ( 'CreateTime desc' )->limit ( 10 )->select ();
+		
+		if ($data) {
+			return $data;
+		}
+		return null;
+	}
+	protected function getpopular() {
+		$url = M ( "Urls" );
+		// $User->where('status=1')->order('create_time')->limit(10)->select();
+		// order by CreateTime desc LIMIT 10
+		// $data->table('user U')->join('news N on U.id=N.cid')->field('U.*,N.*')->order('id desc')->limit('8')->findall();
+		$data = $url->table ( "urls" )->join ( "visit_statistics on urls.Id= visit_statistics.UrlId", "right" )->field ( " urls.*, visit_statistics.VisitCount" )->order ( 'visit_statistics.VisitCount desc' )->limit ( 10 )->select ();
+		
+		if ($data) {
+			return $data;
+		}
+		return null;
+	}
 	public function index() {
 		// $this->show('<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} body{ background: #fff; font-family: "微软雅黑"; color: #333;} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.8em; font-size: 36px }</style><div style="padding: 24px 48px;"> <h1>:)</h1><p>欢迎使用 <b>ThinkPHP</b>！</p></div><script type="text/javascript" src="http://tajs.qq.com/stats?sId=9347272" charset="UTF-8"></script>','utf-8');
 		// echo ("hello world!");
 		$this->activeName = "Home";
 		$this->title = 'Home';
+		$this->recentAdd = $this->displayHistory ( $this->getrecent () );
+		$this->popular = $this->displayHistory ( $this->getpopular () );
 		$this->display ();
 	}
 	private function verifyCode($param) {
@@ -222,7 +293,7 @@ class IndexController extends Controller {
 			} else {
 				$data = array (
 						'RowOrdinal' => '0',
-						'OriginalUrl' =>$url,
+						'OriginalUrl' => $url,
 						'CreateTime' => date ( DATE_ATOM, microtime ( true ) ),
 						'Md5' => $md5 
 				);
@@ -288,11 +359,11 @@ class IndexController extends Controller {
 			if (eregi ( '^[0-9a-zA-Z]+$', $key )) {
 				$url = M ( "Urls" );
 				$data = $url->where ( 'binary ShortUrl=\'' . $key . '\'' )->find ();
-			 
+				
 				if ($data) {
 					$this->addVistRecord ( $data ['Id'] );
-					$originalUrl = $data ['OriginalUrl']; 
-					if ( eregi ( '^[a-zA-Z]+[:]//', $originalUrl )==0) {
+					$originalUrl = $data ['OriginalUrl'];
+					if (eregi ( '^[a-zA-Z]+[:]//', $originalUrl ) == 0) {
 						$originalUrl = 'http://' . $originalUrl;
 					}
 					echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL='" . $originalUrl . "'\">";

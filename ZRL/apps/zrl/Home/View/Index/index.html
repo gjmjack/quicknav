@@ -21,6 +21,45 @@
 	<!-- /.col-lg-6 -->
 
 </div>
+<?php
+ function displayHistory($data) {
+		if ($data == null) {
+			return "";
+		}
+		$host = "http://" . $_SERVER ["HTTP_HOST"];
+		$index = count ( $data );
+		
+		for($i = 0; $i < $index; $i ++) {
+			
+			$tr = "<tr ";
+			if ($i % 2 == 0) {
+				$tr = $tr . " class=\"active\" ";
+			}
+			$tr = $tr . ">";
+			$su = $host + $data [$i] . ShortUrl;
+			$visit = $data [$i] . VisitCount == null ? 0 : $data [$i] . VisitCount;
+			$tr = $tr . "<td>" + ($i + 1) + "</td>";
+			$tr = $tr . "<td><a href=\"" + $su + "\" target=\"_blank\">" + $su + "</a></td>";
+			
+			$orl = $data [$i] . OriginalUrl;
+			$orlview = "<td";
+			
+			if (strlen ( $orl ) > 50) {
+				$orl = substr ( $orl, 0, 50 ) . "...";
+				$orlview = $orlview . " title=\"" . $data [$i] . OriginalUrl . "\" ";
+			}
+			$orlview = $orlview . ">" . $orl . "</td>";
+			
+			$tr = $tr . $orlview;
+			
+			$tr = $tr . "<td>" . $data [$i] . CreateTime . "</td>";
+			$tr = $tr . "<td>" . visit . "</td>";
+			
+			$tr = $tr . "</tr>";
+		}
+		return $tr;
+	}
+?>
 <div class="row">
 	<div class="col-lg-2 "></div>
 	<div class="col-lg-8 ">
@@ -29,18 +68,18 @@
 			<div class="panel-heading">Recent added</div>
 
 			<!-- Table -->
-			<table class="table">
+			<table class="table table-hover">
 				<thead>
 					<tr>
-					    <th>Id</th>					
-						<th>Short Url</th>
+						<th>Id</th>
+						<th>Quick Link</th>
 						<th>Original Url</th>
-						<th>Create Time</th>
-						<th>Access Time</th>
+						<th>Create at</th>
+						<th>Hits</th>
 					</tr>
 				</thead>
 				<tbody id="recent">
-					 
+					{$recentAdd}
 				</tbody>
 			</table>
 		</div>
@@ -57,17 +96,18 @@
 			<div class="panel-heading">Most popular</div>
 
 			<!-- Table -->
-			<table class="table">
+			<table class="table table-hover">
 				<thead>
 					<tr>
-					    <th>Id</th>
-						<th>Short Url</th>
+						<th>Id</th>
+						<th>Quick Link</th>
 						<th>Original Url</th>
-						<th>Create Time</th>
-						<th>Access Time</th>
+						<th>Create at</th>
+						<th>Hits</th>
 					</tr>
 				</thead>
 				<tbody id="popular">
+ 						{$popular}
 				</tbody>
 			</table>
 		</div>
