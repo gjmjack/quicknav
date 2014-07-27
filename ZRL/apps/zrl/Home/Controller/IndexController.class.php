@@ -187,7 +187,7 @@ class IndexController extends Controller {
 			array_push ( $result, ">" );
 			
 			array_push ( $result, "<td>" . ($i + 1) . "</td>" );
-			array_push ( $result, "<td><a href=\"" . $su . "\" target=\"_blank\">" . $su . "</a></td>" );
+			array_push ( $result, "<td><a href=\"" . $su.".htm" . "\" target=\"_blank\">" . $su . "</a></td>" );
 			
 			array_push ( $result, "<td" );
 			
@@ -196,7 +196,7 @@ class IndexController extends Controller {
 				array_push ( $result, " title=\"" . $data [$i] ["OriginalUrl"] . "\" " );
 			}
 			if (eregi("^https?://.+$",$orl)) {
-				 $orl="<a href=\"" . $su . "\" target=\"_blank\">" . $orl . "</a>";
+				 $orl="<a href=\"" . $su.".htm" . "\" target=\"_blank\">" . $orl . "</a>";
 			}
 			array_push ( $result, ">" . $orl . "</td>" );
 			

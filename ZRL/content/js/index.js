@@ -11,7 +11,7 @@ define(
 			var messageBar = null;
 			var indexConfig = {
 				VerifyCodeUrl : '/v/newentry.html',
-				EncodeUrl : '/encode.html'
+				EncodeUrl : '/i/encode.html'
 			};
 			function getResultPanel(url) {
 
@@ -284,35 +284,36 @@ define(
 			}
 
 			function iniInput() {
-				$("#sbox-bt").click(function() {
+				$("#sbox-bt").click(
+						function() {
 
-					var surl = getUrl();
+							var surl = getUrl();
 
-					if (!validateUrl(surl)) {
-						return;
-					}
-					var key = $.md5(surl);
+							if (!validateUrl(surl)) {
+								return;
+							}
+							var key = $.md5(surl);
 
-					var data = getDatafromCache(key);
+							var data = getDatafromCache(key);
 
-					if (data) {
-						data.source = surl;
-						showEncodeResult(data);
-					} else {
-						data = {
-							data : surl,
-							md5key : key,
-							validateKey : ""
-						};
-						$.post(indexConfig.EncodeUrl, data,
-								function(resultObj) {
+							if (data) {
+								data.source = surl;
+								showEncodeResult(data);
+							} else {
+								data = {
+									data : surl,
+									md5key : key,
+									validateKey : ""
+								};
+								$.post(indexConfig.EncodeUrl, data, function(
+										resultObj) {
 									resultObj.source = surl;
 									showEncodeResult(resultObj);
 								});
-						// verifyInput();
-					}
-					;
-				});
+								// verifyInput();
+							}
+							;
+						});
 				$("#sourceUrl").tooltip({
 					title : ZrlStrings.InputUrlHint,
 					placement : 'top'
@@ -361,7 +362,7 @@ define(
 					var visit = data[i].VisitCount == null ? 0
 							: data[i].VisitCount;
 					tr.append($("<td>" + (i + 1) + "</td>"));
-					tr.append($("<td><a href=\"" + su + "\" target=\"_blank\">"
+					tr.append($("<td><a href=\"" + su + ".htm\" target=\"_blank\">"
 							+ su + "</a></td>"));
 					var orl = data[i].OriginalUrl;
 					var orlview = $("<td/>");
@@ -373,7 +374,7 @@ define(
 					var rg = new RegExp("^(https?)://.+$", "i");
 					if (rg.test(orl)) {
 						orlview.append($("<a href=\"" + su
-								+ "\" target=\"_blank\">" + orl + "</a>"))
+								+ ".htm\" target=\"_blank\">" + orl + "</a>"))
 					} else {
 						orlview.append(orl);
 					}

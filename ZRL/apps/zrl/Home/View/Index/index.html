@@ -7,7 +7,7 @@
 	<div class="col-lg-8 zrl-group">
 		<div class="input-group input-group-lg" style="margin-bottom: 15px;">
 			<input type="text" autocomplete="off" class="form-control"
-				placeholder="http://servername/site/...." id="sourceUrl"> <span
+				placeholder="Url Shortener" id="sourceUrl"> <span
 				class="input-group-btn ">
 				<button class="btn btn-default " id="sbox-bt" type="button">
 					<span class="icon-z"></span>
@@ -21,45 +21,6 @@
 	<!-- /.col-lg-6 -->
 
 </div>
-<?php
- function displayHistory($data) {
-		if ($data == null) {
-			return "";
-		}
-		$host = "http://" . $_SERVER ["HTTP_HOST"];
-		$index = count ( $data );
-		
-		for($i = 0; $i < $index; $i ++) {
-			
-			$tr = "<tr ";
-			if ($i % 2 == 0) {
-				$tr = $tr . " class=\"active\" ";
-			}
-			$tr = $tr . ">";
-			$su = $host + $data [$i] . ShortUrl;
-			$visit = $data [$i] . VisitCount == null ? 0 : $data [$i] . VisitCount;
-			$tr = $tr . "<td>" + ($i + 1) + "</td>";
-			$tr = $tr . "<td><a href=\"" + $su + "\" target=\"_blank\">" + $su + "</a></td>";
-			
-			$orl = $data [$i] . OriginalUrl;
-			$orlview = "<td";
-			
-			if (strlen ( $orl ) > 50) {
-				$orl = substr ( $orl, 0, 50 ) . "...";
-				$orlview = $orlview . " title=\"" . $data [$i] . OriginalUrl . "\" ";
-			}
-			$orlview = $orlview . ">" . $orl . "</td>";
-			
-			$tr = $tr . $orlview;
-			
-			$tr = $tr . "<td>" . $data [$i] . CreateTime . "</td>";
-			$tr = $tr . "<td>" . visit . "</td>";
-			
-			$tr = $tr . "</tr>";
-		}
-		return $tr;
-	}
-?>
 <div class="row">
 	<div class="col-lg-2 "></div>
 	<div class="col-lg-8 ">
